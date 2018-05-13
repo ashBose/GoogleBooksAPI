@@ -4,8 +4,10 @@ import com.google.api.services.books.model.Volume;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 public class CustomComparator {
 
@@ -22,6 +24,22 @@ public class CustomComparator {
         else if(first != null && second == null)
             return LESS;
         return NONNULL;
+    }
+
+    private static Date convertToDate(String dateString)
+    {
+        if(dateString == null)
+            return null;
+        List<String> formatStrings = Arrays.asList("M/y", "yyyy", "yyyy-MM-dd");
+        for (String formatString : formatStrings)
+        {
+            try
+            {
+                return new SimpleDateFormat(formatString).parse(dateString);
+            }
+            catch (ParseException e) {}
+        }
+        return null;
     }
 
     // price, avg rating, rating count, published date, or page count
@@ -87,24 +105,22 @@ public class CustomComparator {
                 }
             };
 
-    /*
+
     public static final Comparator<Volume> publishedDateComparator =
             new Comparator<Volume>(){
 
         public int compare(Volume o1, Volume o2){
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
             Volume.VolumeInfo volumeInfo1 = o1.getVolumeInfo();
             Volume.VolumeInfo volumeInfo2 = o2.getVolumeInfo();
-            Date date1 = dt.parse(volumeInfo1.getPublishedDate());
-            Date date2 = dt.parse(volumeInfo2.getPublishedDate());
-            if (date1.compareTo(date2) > 0)
-                return 1;
-            else
-                return -1;
-
+            Date date1 = convertToDate(volumeInfo1.getPublishedDate());
+            Date date2 = convertToDate(volumeInfo2.getPublishedDate());
+            int val = nullSafeCompare(date1, date2);
+            if( val != NONNULL)
+                return val;
+            return Long.compare(date1.getTime(), date2.getTime());
         }
 
-    };*/
+    };
 
 
 }
