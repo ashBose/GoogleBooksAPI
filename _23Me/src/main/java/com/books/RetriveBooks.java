@@ -43,8 +43,9 @@ public class RetriveBooks {
         for (Volume volume : volumes.getItems()) {
             Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
             for(String book: bookNameFilter.split(",")) {
-                book = book.trim();
-                if(book.equals(volumeInfo.getTitle())) {
+                book = book.trim().toLowerCase();
+                String title = volumeInfo.getTitle().toLowerCase();
+                if(book.equals(title)) {
                     filteredVolumeList.add(volume);
                     break;
                 }

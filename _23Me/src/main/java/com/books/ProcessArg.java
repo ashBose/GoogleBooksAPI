@@ -16,8 +16,8 @@ public class ProcessArg {
     final static Logger logger = Logger.getLogger(ProcessArg.class);
     private String[] args = null;
     private Options options = new Options();
-    Map<String, String> argMap = null;
-    Set<String> filterSort = new HashSet<String>(Arrays.asList("avg_rating",
+    private Map<String, String> argMap = null;
+    private Set<String> filterSort = new HashSet<String>(Arrays.asList("avg_rating",
             "rating_count",
             "page_count",
             "published_date",
@@ -31,7 +31,7 @@ public class ProcessArg {
         options.addOption("s", "sort",
                 true, "parameter used to sort use the " +
                         "following " +
-                        "avg_rating, rating_count, page_count, published_date, " +
+                        "avg_rating, rating_count, page_count, published_date,"+
                         "retail_price");
         options.addOption("q", "query",
                 true, "query to search for");

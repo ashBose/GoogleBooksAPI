@@ -7,24 +7,14 @@ import java.util.Map;
 
 public class AppEntryMain {
 
-    static String tempFile = null;
-    public static String getTempFile(){
-        return tempFile;
-    }
-    public static void setTempFile(String query) {
-
-        String date = new SimpleDateFormat("yyyy_MM_dd").
-                format(new Date());
-        tempFile = "/tmp/" + query + "_"+ date +".json";
-    }
 
     public static void main(String[] args)  throws Exception{
         Map<String, String> argMap = new ProcessArg(args).parse();
         RetriveBooks rb = new RetriveBooks();
         List<String> shelf = rb.doExtractBooks(argMap);
-        setTempFile(argMap.get("query"));
-        new JsonResultWriter(getTempFile()).write(shelf);
-        List<String> persistShelf = new JsonResultReader(getTempFile()).
+        Utility.setTempFile(argMap.get("query"));
+        new JsonResultWriter(Utility.getTempFile()).write(shelf);
+        List<String> persistShelf = new JsonResultReader(Utility.getTempFile()).
                 getVirtualShelf();
         new DisplayOutput().display(persistShelf);
     }

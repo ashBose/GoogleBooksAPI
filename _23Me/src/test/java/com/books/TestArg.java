@@ -57,10 +57,12 @@ public class TestArg {
         String[] args = new String[]{"-h"};
         ProcessArg pg = new ProcessArg(args);
         try {
+
+            OutputCaptureTest op = new OutputCaptureTest();
+            op.captureOut();
             pg.parse();
-            ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-            System.setOut( new PrintStream( new FileOutputStream(
-                    FileDescriptor.out ) ) );
+            String output = op.getOut();
+            assertTrue(output.contains("show help"));
         } catch(ParseException e) {
             fail();
         }
@@ -104,7 +106,7 @@ public class TestArg {
             fail();
         } catch(ParseException e) {
 
-            assertEquals(e.getMessage(), "query parameter not present");
+            assertEquals(e.getMessage(), "book parameter not present");
         }
     }
 
