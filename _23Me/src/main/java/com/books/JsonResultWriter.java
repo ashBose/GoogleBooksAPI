@@ -16,15 +16,17 @@ public class JsonResultWriter  {
 
     public JsonResultWriter(String fileName) throws IOException {
         try {
-            Writer writer = new FileWriter(fileName);
+            writer = new FileWriter(fileName);
         } catch (IOException e) {
             throw new IOException("unable to open file");
         }
     }
 
     public void write(List<String> shelf) throws IOException {
-        Gson gson = new GsonBuilder().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().
+                disableHtmlEscaping().create();
         gson.toJson(shelf, writer);
+        writer.close();
     }
 
 }

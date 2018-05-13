@@ -46,7 +46,7 @@ public class ProcessArg {
         String arg;
         try {
             cmd = parser.parse(options, args);
-            if(args.length == 0) {
+            if (args.length == 0) {
                 throw new ParseException("No argument present");
             }
             if (cmd.hasOption("h")) {
@@ -54,27 +54,30 @@ public class ProcessArg {
                 System.exit(0);
             }
             if (cmd.hasOption("q")) {
-                argMap.put("query",cmd.getOptionValue("q"));
+                argMap.put("query", cmd.getOptionValue("q"));
             } else {
                 throw new ParseException("query parameter not present");
             }
             if (cmd.hasOption("s")) {
                 arg = cmd.getOptionValue("s");
-                if(!filterSort.contains(arg))
+                if (!filterSort.contains(arg)) {
                     throw new ParseException("sort parameter not present");
-                argMap.put("sort",arg);
+                }
+                argMap.put("sort", arg);
             } else {
+
                 throw new ParseException("sort parameter not present");
             }
             if (cmd.hasOption("b")) {
-                argMap.put("book",cmd.getOptionValue("b"));
+                argMap.put("book", cmd.getOptionValue("b"));
             } else {
                 throw new ParseException("book parameter not present");
             }
-        } catch (ParseException e) {
+        }catch(ParseException p) {
             help();
-            throw new ParseException(e.getMessage());
+            throw new ParseException(p.getMessage());
         }
+
         return argMap;
     }
 

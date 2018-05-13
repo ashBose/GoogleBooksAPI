@@ -11,14 +11,12 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 public class RetriveBooks {
     private static final String APPLICATION_NAME = "23ME-test/1.0";
     final static Logger logger = Logger.getLogger(RetriveBooks.class);
     java.util.List<Volume> filteredVolumeList = null;
-    public static String tempFile = null;
     ArrayList<String> virtualShelf = new ArrayList<String>();
 
     private  Volumes queryGoogleBooks(JsonFactory jsonFactory, String query,
@@ -103,20 +101,11 @@ public class RetriveBooks {
         else if(sortFilter.equals("retail_price"))
             Collections.sort(filteredVolumeList,
                     CustomComparator.PriceComparator);
-        /*else if(sortFilter.equals("published_date"))
+        else if(sortFilter.equals("published_date"))
             Collections.sort(filteredVolumeList,
-                    CustomComparator.publishedDateComparator);*/
+                    CustomComparator.publishedDateComparator);
 
         doCreateVirtualShelf();
         return virtualShelf;
     }
-
-    public static void main(String[] args) throws Exception {
-        Map<String, String> argMap = new HashMap<String, String>();
-        argMap.put("query", "java");
-        argMap.put("book", "Head First Java, Java Web Development Illuminated");
-        argMap.put("sort", "avg_rating");
-        new RetriveBooks().doExtractBooks(argMap);
-    }
-
 }

@@ -1,5 +1,7 @@
 package com.books;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +12,10 @@ public class AppEntryMain {
         return tempFile;
     }
     public static void setTempFile(String query) {
-        tempFile = "/tmp" + query + ".json";
+
+        String date = new SimpleDateFormat("yyyy_MM_dd").
+                format(new Date());
+        tempFile = "/tmp/" + query + "_"+ date +".json";
     }
 
     public static void main(String[] args)  throws Exception{

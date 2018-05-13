@@ -30,7 +30,7 @@ public class CustomComparator {
     {
         if(dateString == null)
             return null;
-        List<String> formatStrings = Arrays.asList("M/y", "yyyy", "yyyy-MM-dd");
+        List<String> formatStrings = Arrays.asList("yyyy", "yyyy-MM-dd");
         for (String formatString : formatStrings)
         {
             try
@@ -121,6 +121,4 @@ public class CustomComparator {
         }
 
     };
-
-
 }
