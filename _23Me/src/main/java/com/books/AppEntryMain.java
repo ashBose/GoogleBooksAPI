@@ -10,7 +10,7 @@ public class AppEntryMain {
         return tempFile;
     }
     public static void setTempFile(String query) {
-        tempFile = "/tmp/" + query + ".json";
+        tempFile = "/tmp" + query + ".json";
     }
 
     public static void main(String[] args)  throws Exception{
@@ -19,6 +19,8 @@ public class AppEntryMain {
         List<String> shelf = rb.doExtractBooks(argMap);
         setTempFile(argMap.get("query"));
         new JsonResultWriter(getTempFile()).write(shelf);
-        new DisplayOutput().display(shelf);
+        List<String> persistShelf = new JsonResultReader(getTempFile()).
+                getVirtualShelf();
+        new DisplayOutput().display(persistShelf);
     }
 }
