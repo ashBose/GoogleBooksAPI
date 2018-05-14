@@ -67,7 +67,7 @@ public class RetriveBooks {
         Volumes volumes = null;
         try {
             try {
-               // do {
+               do {
                     try {
                         volumes = queryGoogleBooks(jsonFactory,
                                 argMap.get("query"),
@@ -81,7 +81,7 @@ public class RetriveBooks {
                         filterBooks(volumes, argMap.get("book"));
                         startIndex += maxResults;
                     }
-                //} while ((volumes != null));
+                } while ((volumes != null));
             } catch (IOException e) {
                 logger.error(e.getMessage());
                 throw new IOException(e.getMessage());
